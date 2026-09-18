@@ -64,8 +64,8 @@ def get_hybrid_recommendations(recom_content, recom_collab, alpha=0.6, top_n=10)
         (1 - alpha) * merged["content_score_norm"] + 
         alpha * merged["collab_score_norm"]
     )
-    df_recom_hybrid = merged[["movieId", "title", "content_score", "collab_score", "hybrid_score"]].sort_values("hybrid_score", ascending=False).head(10).reset_index(drop=True)
-    return df_recom_hybrid
+    df_recom_hybrid = merged[["movieId", "title", "content_score", "collab_score", "hybrid_score"]].sort_values("hybrid_score", ascending=False).reset_index(drop=True)
+    return df_recom_hybrid.head(top_n) if top_n else df_recom_hybrid
 
 
 def get_similar_movies(movie_id, df_genre_matrix, genre_cols, top_n=10):
