@@ -54,9 +54,9 @@ st.subheader("Get Started")
 st.markdown("Enter your **User ID** to recieve personalized recommendations across all three methods.")
 col1, col2, col3 = st.columns([1, 1, 2])
 with col1:
-    if st.button("🎬 Get Recommendations", type="primary", use_container_width=True):
+    if st.button("🎬 Get Recommendations", type="primary", width="stretch"):
         st.switch_page("pages/2_recommendations.py")
         
 with col2:
-    if st.button("🔍 Explore Movies", use_container_width=True):
+    if st.button("🔍 Explore Movies", width="stretch"):
         st.switch_page("pages/3_movie_explorer.py")

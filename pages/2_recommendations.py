@@ -23,7 +23,7 @@ with col_input:
     user_id = st.number_input("User ID", min_value=1, max_value=1000, value=1, step=1)
 
 with col_btn:
-    get_recom = st.button("Get Recommendations", type="primary", use_container_width=True)
+    get_recom = st.button("Get Recommendations", type="primary", width="stretch")
 
 valid_user_id = set(df_merged["userId"].unique())
 
@@ -83,13 +83,13 @@ if not st.session_state["is_new_user"]:
         st.markdown("Predicts ratings based on **patterns from similar users**.")
         df_show = recom_collab_all.head(top_n)[["title", "collab_score"]].copy()
         df_show.columns = ["Movie Title", "Predicted Rating"]
-        st.dataframe(df_show, use_container_width=True, hide_index=True)
+        st.dataframe(df_show, width="stretch", hide_index=True)
         
     with tab2:
         st.markdown("Matches movies to your **genre preference profile**.")
         df_show = recom_content_all.head(top_n)[["title", "content_score"]].copy()
         df_show.columns = ["Movie Title", "Content Score"]
-        st.dataframe(df_show, use_container_width=True, hide_index=True)
+        st.dataframe(df_show, width="stretch", hide_index=True)
 
     with tab3:
         st.markdown("Combines both methods using a **weighted average**.")
@@ -109,27 +109,23 @@ if not st.session_state["is_new_user"]:
         else:
             df_show = recom_hybrid.head(top_n)[["title", "collab_score", "content_score", "hybrid_score"]].copy()
             df_show.columns = ["Movie Title", "Collaborative", "Content", "Hybrid Score"]
-            st.dataframe(df_show, use_container_width=True, hide_index=True)
+            st.dataframe(df_show, width="stretch", hide_index=True)
 
 else:
     current_user = st.session_state["user_id"]
     st.info(f"👋 Welcome, new user!")
     st.markdown(f"Select your **favorite genres** to get content-based recommendations:")
 
-    selected_genres = st.multiselect(
-        "Choose genres",
-        options=sorted(genre_cols.tolist()),
-        placeholder="Pick at least one genre..."
-    )
+    selected_genres = st.multiselect("Choose genres", options=sorted(genre_cols.tolist()), placeholder="Pick at least one genre...")
 
     if not selected_genres:
         st.warning("Please select at least one genre to get recommendations.")
         st.stop()
 
     top_n_cold = st.slider("Top N recommendations", min_value=5, max_value=30, value=10, step=5, key="top_n_cold")
-    recom_cold = get_cold_start_recommendations(selected_genres, genre_cols, df_genre_matrix, top_n=top_n_cold)
+    recom_cold = get_cold_start_recommendations(selected_genres, genre_cols, df_genre_matrix, top_n=None)
 
     st.subheader("🎯 Recommendations For You")
-    df_show = recom_cold[["title", "content_score"]].copy()
+    df_show = recom_cold.head(top_n_cold)[["title", "content_score"]].copy()
     df_show.columns = ["Movie Title", "Genre Match Score"]
-    st.dataframe(df_show, use_container_width=True, hide_index=True)
+    st.dataframe(df_show, width="stretch", hide_index=True)
