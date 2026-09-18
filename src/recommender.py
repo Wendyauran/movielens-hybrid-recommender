@@ -81,8 +81,8 @@ def get_similar_movies(movie_id, df_genre_matrix, genre_cols, top_n=10):
     results = df_genre_matrix[["movieId", "title"]].copy()
     results["similarity"] = cosine_score
 
-    df_recom_cosine = results[results["movieId"] != movie_id].sort_values("similarity", ascending=False).head(top_n).reset_index(drop=True)
-    return df_recom_cosine
+    df_recom_cosine = results[results["movieId"] != movie_id].sort_values("similarity", ascending=False).reset_index(drop=True)
+    return df_recom_cosine.head(top_n) if top_n else df_recom_cosine
 
 
 def get_cold_start_recommendations(selected_genres, genre_cols, df_genre_matrix, top_n=10):
@@ -100,5 +100,5 @@ def get_cold_start_recommendations(selected_genres, genre_cols, df_genre_matrix,
         "movieId": df_genre_matrix["movieId"].values,
         "title": df_genre_matrix["title"].values,
         "content_score": result_scores
-    }).sort_values("content_score", ascending=False).head(top_n).reset_index(drop=True)
-    return df_recom_cold
+    }).sort_values("content_score", ascending=False).reset_index(drop=True)
+    return df_recom_cold.head(top_n) if top_n else df_recom_cold
