@@ -3,11 +3,6 @@ import pandas as pd
 import plotly.express as px
 from src.data_loader import load_data, build_genre_matrix
 
-st.set_page_config(
-    page_title="Analytics",
-    page_icon="📊",
-    layout="wide"
-)
 
 df_ratings, df_movies, df_merged = load_data()
 df_genre_matrix, genre_cols = build_genre_matrix(df_movies)

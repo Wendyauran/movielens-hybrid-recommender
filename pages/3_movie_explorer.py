@@ -3,11 +3,6 @@ from src.data_loader import load_data, build_genre_matrix, load_surprise_dataset
 from src.model import load_model
 from src.recommender import get_similar_movies
 
-st.set_page_config(
-    page_title="Movie Explorer",
-    page_icon="🔍",
-    layout="wide"
-)
 
 df_ratings, df_movies, df_merged = load_data()
 df_genre_matrix, genre_cols = build_genre_matrix(df_movies)
@@ -23,6 +18,7 @@ title_to_id = dict(zip(df_display["display_title"], df_display["movieId"]))
 col_search, col_n = st.columns([3, 1], vertical_alignment="bottom")
 with col_search:
     selected_title = st.selectbox("Search for a movie", options=sorted(df_display["display_title"].tolist()))
+
 with col_n:
     top_n = st.slider("Number of similar movies", min_value=5, max_value=30, value=10, step=5)
 
@@ -64,6 +60,7 @@ valid_user_id = set(df_merged["userId"].unique())
 col_uid, col_btn = st.columns([2, 1], vertical_alignment="bottom")
 with col_uid:
     pred_user_id = st.number_input("User ID", min_value=1, max_value=1000, value=1, step=1, key="pred_user_id")
+
 with col_btn:
     predict = st.button("Predict Rating", type="primary", width="stretch")
 

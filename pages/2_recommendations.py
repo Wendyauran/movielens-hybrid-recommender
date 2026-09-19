@@ -4,11 +4,6 @@ from src.data_loader import load_data, build_genre_matrix, load_surprise_dataset
 from src.model import load_model
 from src.recommender import get_user_profile, get_content_recommendations, get_collab_recommendations, get_hybrid_recommendations, get_cold_start_recommendations
 
-st.set_page_config(
-    page_title="Recommendations", 
-    page_icon="🎬", 
-    layout="wide"
-)
 
 df_ratings, df_movies, df_merged = load_data()
 df_genre_matrix, genre_cols = build_genre_matrix(df_movies)

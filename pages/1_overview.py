@@ -1,11 +1,6 @@
 import streamlit as st
 from src.data_loader import load_data
 
-st.set_page_config(
-    page_title="Movie Recommendation System", 
-    page_icon="🎬", 
-    layout="wide"
-)
 
 df_ratings, df_movies, df_merged = load_data()
 
