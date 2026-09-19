@@ -48,7 +48,7 @@ else:
     df_similar = df_similar.merge(df_display[["movieId", "display_title"]], on="movieId", how="left")
     df_show = df_similar[["display_title", "similarity"]].copy()
     df_show.columns = ["Movie Title", "Similarity Score"]
-    st.dataframe(df_show, width="stretch", hide_index=True)
+    st.dataframe(df_show, width="stretch", hide_index=True, column_config={"Similarity Score": st.column_config.NumberColumn(format="%.4f")})
 
 st.divider()
 

@@ -78,13 +78,13 @@ if not st.session_state["is_new_user"]:
         st.markdown("Predicts ratings based on **patterns from similar users**.")
         df_show = recom_collab_all.head(top_n)[["title", "collab_score"]].copy()
         df_show.columns = ["Movie Title", "Predicted Rating"]
-        st.dataframe(df_show, width="stretch", hide_index=True)
+        st.dataframe(df_show, width="stretch", hide_index=True, column_config={"Predicted Rating": st.column_config.NumberColumn(format="%.4f")})
         
     with tab2:
         st.markdown("Matches movies to your **genre preference profile**.")
         df_show = recom_content_all.head(top_n)[["title", "content_score"]].copy()
         df_show.columns = ["Movie Title", "Content Score"]
-        st.dataframe(df_show, width="stretch", hide_index=True)
+        st.dataframe(df_show, width="stretch", hide_index=True, column_config={"Content Score": st.column_config.NumberColumn(format="%.4f")})
 
     with tab3:
         st.markdown("Combines both methods using a **weighted average**.")
@@ -104,7 +104,12 @@ if not st.session_state["is_new_user"]:
         else:
             df_show = recom_hybrid.head(top_n)[["title", "collab_score", "content_score", "hybrid_score"]].copy()
             df_show.columns = ["Movie Title", "Collaborative", "Content", "Hybrid Score"]
-            st.dataframe(df_show, width="stretch", hide_index=True)
+            st.dataframe(df_show, width="stretch", hide_index=True,
+                column_config={
+                    "Collaborative": st.column_config.NumberColumn(format="%.4f"),
+                    "Content": st.column_config.NumberColumn(format="%.4f"),
+                    "Hybrid Score": st.column_config.NumberColumn(format="%.4f")
+            })
 
 else:
     current_user = st.session_state["user_id"]
@@ -123,4 +128,4 @@ else:
     st.subheader("🎯 Recommendations For You")
     df_show = recom_cold.head(top_n_cold)[["title", "content_score"]].copy()
     df_show.columns = ["Movie Title", "Genre Match Score"]
-    st.dataframe(df_show, width="stretch", hide_index=True)
+    st.dataframe(df_show, width="stretch", hide_index=True, column_config={"Genre Match Score": st.column_config.NumberColumn(format="%.4f")})
