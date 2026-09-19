@@ -1,5 +1,5 @@
 import streamlit as st
-from src.data_loader import load_data, build_genre_matrix
+from src.data_loader import load_data
 
 st.set_page_config(
     page_title="Movie Recommendation System", 
@@ -21,7 +21,7 @@ st.subheader("Dataset Overview")
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Total Users", f"{df_merged["userId"].nunique():,}")
 col2.metric("Total Movies", f"{df_merged["movieId"].nunique():,}")
-col3.metric("Total Rating", f"{len(df_ratings):,}")
+col3.metric("Total Ratings", f"{len(df_ratings):,}")
 col4.metric("Avg Rating", f"{df_ratings["rating"].mean():.2f} / 5.0")
 
 st.divider()
