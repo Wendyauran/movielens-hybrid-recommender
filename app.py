@@ -6,6 +6,15 @@ st.set_page_config(
     layout="wide"
 )
 
+st.markdown("""
+<style>
+[data-testid="stBaseButton-primary"] p {
+    color: #18181B !important;
+    font-weight: 600;
+}
+</style>
+""", unsafe_allow_html=True)
+
 pages = [
     st.Page(
         "pages/1_overview.py",
