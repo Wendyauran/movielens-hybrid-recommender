@@ -1,5 +1,5 @@
 import streamlit as st
-import pandas as pd
+import plotly.express as px
 from src.data_loader import load_data, build_genre_matrix, load_surprise_dataset
 from src.model import load_model
 from src.recommender import get_user_profile, get_content_recommendations, get_collab_recommendations, get_hybrid_recommendations, get_cold_start_recommendations
@@ -65,8 +65,20 @@ if not st.session_state["is_new_user"]:
     col4.metric("Lowest Rated", f"{user_watched_movies["rating"].min():.1f}")
 
     with st.expander("📊 Genre Preference Profile", expanded=True):
-        top_genres = user_profile[user_profile > 0].sort_values(ascending=False).head()
-        st.bar_chart(top_genres)
+        top_genres = user_profile[user_profile > 0].sort_values(ascending=False).head(10)
+        top_genres_df = top_genres.reset_index()
+        top_genres_df.columns = ["Genre", "Weight"]
+        top_genres_df["Genre"] = top_genres_df["Genre"].str.capitalize()
+
+        fig = px.bar(top_genres_df, x="Genre", y="Weight", color_discrete_sequence=["#FBBF24"])
+        fig.update_layout(
+            plot_bgcolor="#18181B", paper_bgcolor="#18181B",
+            font_color="#FAFAFA",
+            xaxis=dict(gridcolor="#3F3F46", title="Genre"),
+            yaxis=dict(gridcolor="#3F3F46", title="Profile Weight"),
+            margin=dict(t=20, b=20)
+        )
+        st.plotly_chart(fig, width="stretch")
 
     st.divider()
 
