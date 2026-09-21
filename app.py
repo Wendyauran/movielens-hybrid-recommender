@@ -43,5 +43,5 @@ pages = [
     )
 ]
 
-pg = st.navigation(pages)
+pg = st.navigation({"Menu": pages})
 pg.run()
