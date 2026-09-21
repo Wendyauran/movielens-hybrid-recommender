@@ -8,11 +8,13 @@ df_ratings, df_movies, df_merged = load_data()
 df_genre_matrix, genre_cols = build_genre_matrix(df_movies)
 
 LAYOUT = dict(
-    plot_bgcolor="#18181B", paper_bgcolor="#18181B",
+    plot_bgcolor="#18181B", 
+    paper_bgcolor="#18181B",
     font_color="#FAFAFA",
     xaxis=dict(gridcolor="#3F3F46"),
     yaxis=dict(gridcolor="#3F3F46"),
-    margin=dict(t=30, b=30)
+    margin=dict(t=30, b=30),
+    hoverlabel=dict(bgcolor="#27272A", font_color="#FAFAFA", bordercolor="#2DD4BF", font_size=13)
 )
 
 st.title("📊 Analytics")
@@ -36,6 +38,7 @@ with col_rating:
     rating_counts.columns = ["Rating", "Count"]
 
     fig1 = px.bar(rating_counts, x="Rating", y="Count", color_discrete_sequence=["#FBBF24"])
+    fig1.update_traces(hovertemplate="Rating: %{x}<br>Count: %{y:,}<extra></extra>")
     fig1.update_layout(bargap=0.2, **LAYOUT)
     st.plotly_chart(fig1, width="stretch")
 
@@ -45,6 +48,7 @@ with col_activity:
     user_activity.columns = ["userId", "Ratings Count"]
 
     fig2 = px.histogram(user_activity, x="Ratings Count", nbins=30, color_discrete_sequence=["#FB923C"])
+    fig2.update_traces(hovertemplate="Ratings given: %{x}<br>Users: %{y}<extra></extra>")
     fig2.update_layout(**LAYOUT)
     st.plotly_chart(fig2, width="stretch")
 
@@ -58,6 +62,7 @@ genre_counts.columns = ["Genre", "Movie Count"]
 genre_counts["Genre"] = genre_counts["Genre"].str.capitalize()
 
 fig3 = px.bar(genre_counts, x="Movie Count", y="Genre", orientation="h", color="Movie Count", color_continuous_scale=["#78350F", "#92400E", "#B45309", "#D97706", "#F59E0B", "#FBBF24", "#FCD34D", "#FDE68A"])
+fig3.update_traces(hovertemplate="Genre: %{y}<br>Movie count: %{x:,}<extra></extra>")
 fig3.update_layout(**LAYOUT)
 st.plotly_chart(fig3, width="stretch")
 

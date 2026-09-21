@@ -71,12 +71,15 @@ if not st.session_state["is_new_user"]:
         top_genres_df["Genre"] = top_genres_df["Genre"].str.capitalize()
 
         fig = px.bar(top_genres_df, x="Genre", y="Weight", color_discrete_sequence=["#FBBF24"])
+        fig.update_traces(hovertemplate="Genre: %{x}<br>Preference: %{y:.1%}<extra></extra>")
         fig.update_layout(
-            plot_bgcolor="#18181B", paper_bgcolor="#18181B",
+            plot_bgcolor="#18181B", 
+            paper_bgcolor="#18181B",
             font_color="#FAFAFA",
             xaxis=dict(gridcolor="#3F3F46", title="Genre"),
             yaxis=dict(gridcolor="#3F3F46", title="Profile Weight"),
-            margin=dict(t=20, b=20)
+            margin=dict(t=20, b=20),
+            hoverlabel=dict(bgcolor="#27272A", font_color="#FAFAFA", bordercolor="#2DD4BF", font_size=13)
         )
         st.plotly_chart(fig, width="stretch")
 
