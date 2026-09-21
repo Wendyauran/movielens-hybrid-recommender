@@ -37,7 +37,7 @@ else:
 
 st.divider()
 
-st.subheader("🎭 Similar Movies")
+st.subheader("Similar Movies")
 st.markdown("Based on **genre similarity** using cosine similarity.")
 
 df_similar = get_similar_movies(selected_movie_id, df_genre_matrix, genre_cols, top_n=top_n)
@@ -52,7 +52,7 @@ else:
 
 st.divider()
 
-st.subheader("🤝 Collaborative Rating Prediction")
+st.subheader("Collaborative Rating Prediction")
 st.markdown("Enter a **User ID** to see the predicted rating this user would give.")
 
 valid_user_id = set(df_merged["userId"].unique())

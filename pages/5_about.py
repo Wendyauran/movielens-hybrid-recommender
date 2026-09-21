@@ -12,7 +12,7 @@ st.divider()
 tab1, tab2, tab3 = st.tabs(["🧠 Methodology", "🛠️ Tech Stack", "📦 Dataset"])
 with tab1:
     st.subheader("Recommendation Methods")
-    with st.expander("🤝 Collaborative Filtering", expanded=True):
+    with st.expander("🧑‍🤝‍🧑 Collaborative Filtering", expanded=True):
         st.markdown("""
         Recommends movies based on **rating patterns from similar users**.
 
@@ -27,7 +27,7 @@ with tab1:
         3. Predicts rating using a baseline-adjusted weighted average
         """)
 
-    with st.expander("🎭 Content-Based Filtering"):
+    with st.expander("🏷️ Content-Based Filtering"):
         st.markdown("""
         Recommends movies based on a **genre preference profile** built from past ratings.
 
@@ -42,7 +42,7 @@ with tab1:
         4. Scores unseen movies via dot product with the profile
         """)
 
-    with st.expander("⚡ Hybrid Recommendation"):
+    with st.expander("⚖️ Hybrid Recommendation"):
         st.markdown("""
         Combines collaborative and content-based scores using a **weighted average**.
 
@@ -108,4 +108,4 @@ with tab3:
 
     st.subheader("Source Code")
     st.markdown("The full source code for this project is available on GitHub.")
-    st.link_button("🐙 View on GitHub", "https://github.com/Wendyauran/movielens-hybrid-recommender")
+    st.link_button("🔗 View on GitHub", "https://github.com/Wendyauran/movielens-hybrid-recommender")

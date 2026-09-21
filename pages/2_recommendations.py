@@ -85,10 +85,10 @@ if not st.session_state["is_new_user"]:
 
     st.divider()
 
-    st.subheader("🎬 Recommendations")
+    st.subheader("Recommendations")
     top_n = st.slider("Top N recommendations", min_value=5, max_value=30, value=10, step=5)
 
-    tab1, tab2, tab3 = st.tabs(["🤝 Collaborative", "🎭 Content-Based", "⚡ Hybrid"])
+    tab1, tab2, tab3 = st.tabs(["🧑‍🤝‍🧑 Collaborative", "🏷️ Content-Based", "⚖️ Hybrid"])
     with tab1:
         st.markdown("Predicts ratings based on **patterns from similar users**.")
         df_show = recom_collab_all.head(top_n)[["title", "collab_score"]].copy()
@@ -128,7 +128,7 @@ if not st.session_state["is_new_user"]:
 
 else:
     current_user = st.session_state["user_id"]
-    st.info(f"👋 Welcome, new user!")
+    st.info(f"Welcome, new user 👋")
     st.markdown(f"Select your **favorite genres** to get content-based recommendations:")
 
     selected_genres = st.multiselect("Choose genres", options=sorted(genre_cols.tolist()), placeholder="Pick at least one genre...")
@@ -140,7 +140,7 @@ else:
     top_n_cold = st.slider("Top N recommendations", min_value=5, max_value=30, value=10, step=5, key="top_n_cold")
     recom_cold = get_cold_start_recommendations(selected_genres, genre_cols, df_genre_matrix, top_n=None)
 
-    st.subheader("🎯 Recommendations For You")
+    st.subheader("Recommendations For You")
     df_show = recom_cold.head(top_n_cold)[["title", "content_score"]].copy()
     df_show.columns = ["Movie Title", "Genre Match Score"]
     st.dataframe(df_show, width="stretch", hide_index=True, column_config={"Genre Match Score": st.column_config.NumberColumn(format="%.4f")})
