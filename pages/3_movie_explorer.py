@@ -1,13 +1,12 @@
 import streamlit as st
-from src.data_loader import load_data, build_genre_matrix, load_surprise_dataset, get_movie_display_titles
+from src.data_loader import load_data, build_genre_matrix, get_movie_display_titles
 from src.model import load_model
 from src.recommender import get_similar_movies
 
 
 df_ratings, df_movies, df_merged = load_data()
 df_genre_matrix, genre_cols = build_genre_matrix(df_movies)
-surprise_data = load_surprise_dataset(df_merged)
-model = load_model(surprise_data)
+model = load_model()
 df_display = get_movie_display_titles(df_genre_matrix)
 
 st.title("🔍 Movie Explorer")
