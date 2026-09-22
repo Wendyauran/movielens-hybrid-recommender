@@ -23,6 +23,17 @@ A production-ready movie recommendation web app built on the [MovieLens 100K](ht
 
 ---
 
+## Background
+
+Recommendation systems are central to how users discover relevant content at scale. 
+This project explores three complementary approaches — Collaborative Filtering, Content-Based Filtering, and Hybrid — applied to real movie rating data, and asks:
+
+> *How does each method approach personalized recommendations, and where does each fall short?*
+
+The result is a tuned **KNNBaseline Item-Based** model (RMSE 0.8497) served through an interactive multi-page Streamlit app, with a cold start solution for users without rating history.
+
+---
+
 ## Features
 
 - **Collaborative Filtering** — KNNBaseline Item-Based model predicts ratings based on patterns from similar users
